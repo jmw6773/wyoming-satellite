@@ -1,5 +1,6 @@
 # Wyoming Satellite
 
+i
 Remote voice satellite using the [Wyoming protocol](https://github.com/rhasspy/wyoming).
 
 * Works with [Home Assistant](https://www.home-assistant.io/integrations/wyoming)
