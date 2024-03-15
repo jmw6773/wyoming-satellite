@@ -20,20 +20,9 @@ from wyoming_satellite import (
     WakeStreamingSatellite,
 )
 
-from .shared import AUDIO_CHUNK
+from .shared import MicClient
 
 _LOGGER = logging.getLogger()
-
-
-class MicClient(AsyncClient):
-    async def read_event(self) -> Optional[Event]:
-        # Send 30ms of audio every 30ms
-        await asyncio.sleep(AUDIO_CHUNK.seconds)
-        return AUDIO_CHUNK.event()
-
-    async def write_event(self, event: Event) -> None:
-        # Output only
-        pass
 
 
 class WakeClient(AsyncClient):
@@ -101,8 +90,8 @@ async def test_multiple_wakeups(tmp_path: Path) -> None:
         await satellite.event_from_server(Transcript("test").event())
 
         # Should not trigger again within refractory period (default: 5 sec)
-        # with pytest.raises(asyncio.TimeoutError):
-        #     await asyncio.wait_for(event_client.wake_event.wait(), timeout=0.15)
+        with pytest.raises(asyncio.TimeoutError):
+            await asyncio.wait_for(event_client.wake_event.wait(), timeout=0.15)
 
         await satellite.stop()
         await satellite_task

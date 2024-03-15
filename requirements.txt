@@ -1,4 +1,4 @@
-wyoming==1.5.2
+wyoming==1.5.3
 zeroconf==0.88.0
 pyring-buffer==1.0.0
 webrtc-noise-gain==1.2.3
