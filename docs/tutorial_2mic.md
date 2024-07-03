@@ -6,7 +6,7 @@ This tutorial should work for almost any Raspberry Pi and USB microphone. Audio 
 
 ## Install OS
 
-Follow instructions to [install Raspberry Pi OS](https://www.raspberrypi.com/software/). Under "Choose OS", pick "Raspberry Pi OS (other)" and "Raspberry Pi OS (Legacy, **64-bit**) Lite".
+Follow instructions to [install Raspberry Pi OS](https://www.raspberrypi.com/software/). Under "Choose OS", pick "Raspberry Pi OS (other)" and "Raspberry Pi OS (**64-bit**) Lite".
 
 When asking if you'd like to apply customization settings, choose "Edit Settings" and:
 
@@ -305,6 +305,13 @@ python3 -m venv --system-site-packages .venv
 .venv/bin/pip3 install 'wyoming==1.5.2'
 ```
 
+In case you use a ReSpeaker USB 4mic array v2.0, additionally install pixel-ring:
+
+```sh
+.venv/bin/pip3 install 'pixel-ring'
+```
+
+
 The `--system-site-packages` argument is used to access the pre-installed `gpiozero` and `spidev` Python packages. If these are **not already installed** in your system, run:
 
 ```sh
@@ -384,5 +391,8 @@ Try a voice command and see if the LEDs change. Use `journalctl` to check the lo
 ``` sh
 journalctl -u 2mic_leds.service -f
 ```
+
+If you encounter any issues, you can add the `--debug` argument to the command line to increase the log level.
+To control the brightness of the LEDS, use the `--led-brightness ` argument, which accepts integer numbers from 1 to 31.
 
 Make sure to run `sudo systemctl daemon-reload` every time you make changes to the service.
